@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Multi-Judge Consensus — AI Task Evaluation</title>
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header>
+    <h1>Multi-Judge Consensus</h1>
+    <p class="tagline">Evaluate whether an AI agent completed a task correctly — using multiple LLM judges and flagging disagreement for human review.</p>
+    <div id="judge-badges" class="badges"></div>
+  </header>
+
+  <main>
+    <form id="eval-form">
+      <label>
+        Customer request
+        <textarea id="customer_request" rows="2" required placeholder="e.g. Return damaged chocolate box and get refund"></textarea>
+      </label>
+
+      <label>
+        Interaction transcript
+        <textarea id="transcript" rows="6" required placeholder="Paste the full customer / agent conversation here..."></textarea>
+      </label>
+
+      <label>
+        Resulting system state
+        <textarea id="system_state" rows="2" required placeholder="e.g. Return authorized, refund $45.99 initiated"></textarea>
+      </label>
+
+      <div class="actions">
+        <button type="submit" id="submit-btn">Run judges</button>
+        <button type="button" id="example-btn" class="secondary">Load example</button>
+      </div>
+    </form>
+
+    <section id="results" class="hidden">
+      <div class="summary">
+        <div class="score-box">
+          <div class="score-value" id="consensus-score">-</div>
+          <div class="score-label">Consensus score / 10</div>
+        </div>
+        <div class="score-box">
+          <div class="score-value" id="score-spread">-</div>
+          <div class="score-label">Score spread</div>
+        </div>
+        <div id="review-flag" class="review-flag"></div>
+      </div>
+
+      <h2>Individual judges</h2>
+      <div id="judge-results" class="judge-grid"></div>
+    </section>
+
+    <p id="error" class="error hidden"></p>
+  </main>
+
+  <footer>
+    <p>Multi-Judge Consensus · FastAPI + async LLM-as-judge pipeline · <a href="/docs">API docs</a></p>
+  </footer>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
